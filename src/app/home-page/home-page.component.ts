@@ -21,6 +21,8 @@ export class HomePageComponent implements OnInit {
   constructor(private elRef: ElementRef) {}
 
   ngOnInit(): void {
+    this.testimonialsSlider();
+    this.heroSectionEffect();
     this.animation();
     this.backToTop();
   }
@@ -63,6 +65,50 @@ export class HomePageComponent implements OnInit {
       window.addEventListener('load', toggleBacktotop)
       window.addEventListener('scroll', toggleBacktotop);
     }
+  }
+
+  //hero section animation effect
+  heroSectionEffect(){
+    const typed = this.select('.typed')
+    if (typed) {
+      let typed_strings = typed.getAttribute('data-typed-items')
+      typed_strings = typed_strings.split(',')
+      new Typed('.typed', {
+        strings: typed_strings,
+        loop: true,
+        typeSpeed: 100,
+        backSpeed: 50,
+        backDelay: 2000
+      });
+    }
+  }
+
+  testimonialsSlider(){
+    new Swiper('.testimonials-slider', {
+      speed: 600,
+      loop: true,
+      autoplay: {
+        delay: 5000,
+        disableOnInteraction: false
+      },
+      slidesPerView: 'auto',
+      pagination: {
+        el: '.swiper-pagination',
+        type: 'bullets',
+        clickable: true
+      },
+      breakpoints: {
+        320: {
+          slidesPerView: 1,
+          spaceBetween: 20
+        },
+
+        1200: {
+          slidesPerView: 3,
+          spaceBetween: 20
+        }
+      }
+    });
   }
 
 }
