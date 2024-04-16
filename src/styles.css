@@ -4,6 +4,13 @@ body {
   font-family: "Open Sans", sans-serif;
   color: #272829;
 }
+.hidden{
+  opacity: 0;
+  transition: 1s;
+}
+.show{
+  opacity: 1;
+}
 
 a {
   color: #149ddd;

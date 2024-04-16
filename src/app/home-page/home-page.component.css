@@ -1,4 +1,12 @@
 
+.show{
+  opacity: 1;
+}
+
+.hidden{
+  opacity: 0;
+  transition: 1s;
+}
 .back-to-top {
   position: fixed;
   visibility: hidden;

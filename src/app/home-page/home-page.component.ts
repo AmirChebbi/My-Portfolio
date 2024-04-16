@@ -1,4 +1,5 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
+import {animate, state, style, transition, trigger} from "@angular/animations";
 
 declare const document: any;
 declare const window: any;
@@ -14,7 +15,19 @@ declare const PureCounter: any;
   selector: 'app-home-page',
   standalone:true,
   templateUrl: './home-page.component.html',
-  styleUrls: ['./home-page.component.css']
+  styleUrls: ['./home-page.component.css'],
+  animations: [
+    trigger('slideInOut', [
+      state('in', style({
+        transform: 'translateX(0%), opacity(0)'
+      })),
+      state('out', style({
+        transform: 'translateX(100%), opacity(100%)'
+      })),
+      transition('in => out', animate('300ms ease-in-out')),
+      transition('out => in', animate('300ms ease-in-out'))
+    ])
+  ]
 })
 export class HomePageComponent implements OnInit {
 
@@ -25,6 +38,7 @@ export class HomePageComponent implements OnInit {
     this.heroSectionEffect();
     this.animation();
     this.backToTop();
+    this.animateOnScroll()
   }
 
   public select (el:any, all = false){
@@ -110,5 +124,34 @@ export class HomePageComponent implements OnInit {
       }
     });
   }
+
+  animateOnScroll(){
+    const sections:NodeListOf<Element> = document.querySelectorAll("hidden")
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry)=>{
+        if (entry.isIntersecting){
+          entry.target.classList.remove("hidden");
+          entry.target.classList.add("show");
+        } else {
+          entry.target.classList.remove("show");
+        }
+      })
+    })
+    sections.forEach((section) =>{
+      observer.observe(section)
+    })
+  }
+
+
+
+   /* window.addEventListener('load', () => {
+      AOS.init({
+        duration: 1000,
+        easing: 'ease-in-out',
+        once: true,
+        mirror: false
+      })
+    }); */
+
 
 }
